@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/zhengyangfeng00/logseq-drawio-plugin/compare/v1.8.0...v1.8.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* keep editor and preview controls clear of logseq header ([5b0493e](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/5b0493ec1a021ead97d77d807ce1af46d5af0642))
+* open import file picker from a dialog click ([f817853](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/f8178530221fb673b594724991ac861e22f95fb4))
+
 # [1.8.0](https://github.com/zhengyangfeng00/logseq-drawio-plugin/compare/v1.7.0...v1.8.0) (2026-11-10)
 
 
