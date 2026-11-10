@@ -1,5 +1,6 @@
 import '@logseq/libs'
 import { encode } from 'js-base64'
+import escape from 'lodash/escape'
 import './styles/index.css'
 import provideCss from './styles/provide.css?inline'
 import { DrawioManager } from './DrawioManager'
@@ -12,7 +13,9 @@ import {
   preview,
   removeFile,
   download,
-  copyImage
+  copyImage,
+  copyPath,
+  getFilePath
 } from './utils'
 import { PreviewManager } from './PreviewManager'
 import { SpinnerManager } from './SpinnerManager'
@@ -40,7 +43,8 @@ function main() {
         preview: (e: LogseqDomEvent) => preview(e, previewManager),
         download: (e: LogseqDomEvent) => download(e, 'origin'),
         'download-svg': (e: LogseqDomEvent) => download(e, 'svg'),
-        'copy-image': copyImage
+        'copy-image': copyImage,
+        'copy-path': copyPath
       }
     }
 
@@ -65,6 +69,7 @@ function main() {
       const svg = await storage.getItem(fileName)
       const simplifiedSvg = svg?.replace(/content=".*?"/, '')
       const base64Svg = encode(simplifiedSvg ?? '')
+      const filePath = escape(await getFilePath(fileName))
       const svgImg = `<img style="background-color: white;" src="data:image/svg+xml;base64,${base64Svg}">`
 
       return logseq.provideUI({
@@ -76,7 +81,7 @@ function main() {
   ${svgImg}
   <div class="overlay"></div>
   <div class="drawio-plugin__toolbar">
-    <div class="drawio-plugin__toolbar-title"></div>
+    <div class="drawio-plugin__toolbar-title" title="${filePath}">${filePath}</div>
     <div class="drawio-plugin__toolbar-actions">
       <button data-file-name="${fileName}" data-uuid="${payload.uuid}" data-on-click="edit" title="edit file">
         <svg stroke="currentColor" viewBox="0 0 24 24" fill="none"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path></svg>
@@ -86,6 +91,9 @@ function main() {
       </button>
       <button data-file-name="${fileName}" data-uuid="${payload.uuid}" data-on-click="download-svg" title="download svg file with drawio file embeded">
         <svg class="icon" data-spm-anchor-id="a313x.search_index.0.i3.310d3a81tEjUar" viewBox="0 0 1024 1024"><path fill="#333" d="M220 865V159h338v184c0 17 14 31 31 31h184v148h62V312h-1c1-9-3-18-9-24L643 106c-6-6-16-9-25-8H220c-34 0-61 27-61 61v706c0 34 27 62 61 62h368v-62H220zm400-691 139 138H620V174z" data-spm-anchor-id="a313x.search_index.0.i4.310d3a81tEjUar"/><path fill="#333" d="m803 904 121-121-41-40-91 92V575h-58v260l-92-92-41 41 121 121 41 41 40-42zM408 482c-5-3-17-7-33-12l-20-7c-5-3-7-6-7-10s2-7 6-9c3-2 9-3 16-3 8 0 14 1 18 4s7 8 8 15l1 2h26v-4c-1-14-7-25-16-32-9-6-21-9-36-9-14 0-25 3-34 9-11 7-16 16-16 29 0 12 6 21 16 27l29 11c18 5 22 7 23 8 7 3 10 7 10 12 0 2-1 6-6 9s-12 4-20 4c-9 0-16-1-20-4-5-4-8-10-9-18v-3h-27l1 4c0 16 7 29 18 36 9 7 21 10 37 10s29-4 38-10c10-7 15-17 15-29 0-13-6-23-18-30zm107-63-31 93-32-93h-29l46 129h29l46-129zm89 81h32v20a51 51 0 0 1-26 6c-14 0-24-4-30-11s-9-17-9-31 3-25 10-33c6-7 14-10 24-10 9 0 16 2 21 5 5 4 8 9 10 16v3h27l-1-4c-2-15-8-26-17-33-10-8-23-11-40-11-19 0-34 6-45 20a71 71 0 0 0-16 47c0 19 5 35 16 47 11 13 27 20 48 20 11 0 21-2 30-5s17-7 24-12l1-1v-57h-59v24z"/></svg>
+      </button>
+      <button data-file-name="${fileName}" data-uuid="${payload.uuid}" data-on-click="copy-path" title="copy file path to clipboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" /></svg>
       </button>
       <button data-file-name="${fileName}" data-uuid="${payload.uuid}" data-on-click="copy-image" title="copy png image to clipboard">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>

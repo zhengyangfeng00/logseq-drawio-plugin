@@ -12,6 +12,7 @@ Using drawio diagrams in Logseq.
 - multiple drawio theme support
 - dark mode support
 - download drawio file in logseq, both in svg and drawio file
+- show the on-disk path of each diagram and copy it to the clipboard
 
 ## How to get started
 1. Clone the repository and submodule.

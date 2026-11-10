@@ -17,6 +17,16 @@ function isValidFileName(name: string) {
   return /\.(drawio|svg)/i.test(name)
 }
 
+/**
+ * Absolute path of a drawio file on disk.
+ * Sandbox assets storage lives at `<graph>/assets/storages/<plugin-id>/`.
+ */
+export async function getFilePath(fileName: string) {
+  const graph = await logseq.App.getCurrentGraph()
+  if (!graph?.path) return ''
+  return `${graph.path}/assets/storages/${logseq.baseInfo.id}/${fileName}`
+}
+
 function showSaveMessage() {
   logseq.UI.showMsg('file saved')
 }
@@ -253,6 +263,25 @@ export const download = async (e: LogseqDomEvent, type: 'svg' | 'origin') => {
     URL.revokeObjectURL(url)
     a.href = ''
   })
+}
+
+export const copyPath = async (e: LogseqDomEvent) => {
+  const path = await getFilePath(e.dataset.fileName)
+  if (!path) {
+    logseq.UI.showMsg('current graph path is not available!', 'error')
+    return
+  }
+
+  // only showing ui and focus can use clipboard api
+  await logseq.showMainUI({ autoFocus: true })
+  try {
+    await navigator.clipboard.writeText(path)
+    logseq.UI.showMsg('Copied file path to clipboard!', 'success')
+  } catch (e) {
+    logseq.UI.showMsg(`Failed(${String(e)}) to copy to clipboard!`, 'error')
+  } finally {
+    logseq.hideMainUI()
+  }
 }
 
 export const copyImage = async (e: LogseqDomEvent) => {

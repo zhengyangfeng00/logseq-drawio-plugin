@@ -37,7 +37,18 @@
     align-content: center;
 }
 
+.drawio-plugin__toolbar-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    user-select: text;
+    @apply mx-1;
+}
+
 .drawio-plugin__toolbar-actions {
+    flex-shrink: 0;
     display: flex;
     flex-direction: row;
     align-content: center;
