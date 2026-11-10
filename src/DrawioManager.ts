@@ -174,10 +174,11 @@ export class DrawioManager extends EventEmitter {
     if (!this.iframeEl) this.createFrame()
     const wrap = document.getElementById('iframe-wrap')
     wrap?.style.setProperty('display', 'block')
-    // logseq.App.queryElementRect('#head').then((rect) => {
-    //   // logseq.setMainUIInlineStyle({ top: `${rect?.top ?? 0}px` })
-    //   wrap?.style.setProperty('--iframe-top', `${rect?.height ?? 0}px`)
-    // })
+    // Start the editor below Logseq's header. The header is a window drag
+    // region, and on macOS it also holds the traffic lights; both swallow
+    // clicks on the editor's menu bar and Save/Exit buttons when they overlap.
+    const headRect = await logseq.App.queryElementRect('#head')
+    wrap?.style.setProperty('--iframe-top', `${headRect?.height ?? 0}px`)
     this.iframeEl?.removeAttribute('style')
     this.iframeEl?.setAttribute('src', await this.configManager.getUrl())
     if (this.configManager.urlConfig.dark === DarkMode.On) {
