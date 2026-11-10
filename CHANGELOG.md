@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/zhengyangfeng00/logseq-drawio-plugin/compare/v1.7.0...v1.8.0) (2026-11-10)
+
+
+### Features
+
+* show diagram file path and add copy-path action ([60146a8](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/60146a85344e5a21c7b9b4d6aaf4e5ebf65b89bd))
+
 # [1.7.0](https://github.com/lee88688/logseq-drawio-plugin/compare/v1.6.0...v1.7.0) (2024-07-17)
 
 
