@@ -35,35 +35,56 @@ function createRenderer(fileName: string) {
   return `{{renderer :drawio, ${fileName}}}`
 }
 
+/**
+ * Let the user pick a file to import.
+ *
+ * The browser opens a file picker only during a user gesture in this frame.
+ * A slash command runs without one, so show a dialog and open the picker
+ * from its button click. Resolves to null when the user cancels.
+ */
+function chooseFile() {
+  const dialog = document.getElementById('import-dialog')!
+  const chooseButton = document.getElementById('import-choose')!
+  const cancelButton = document.getElementById('import-cancel')!
+  const input = document.createElement('input')
+  input.type = 'file'
+  input.accept = '.drawio,.svg'
+
+  return new Promise<File | null>((resolve) => {
+    const finish = (file: File | null) => {
+      chooseButton.removeEventListener('click', handleChoose)
+      cancelButton.removeEventListener('click', handleCancel)
+      document.removeEventListener('keyup', handleKeyUp)
+      dialog.style.removeProperty('display')
+      logseq.hideMainUI()
+      resolve(file)
+    }
+    const handleChoose = () => input.click()
+    const handleCancel = () => finish(null)
+    const handleKeyUp = (e: KeyboardEvent) => e.key === 'Escape' && finish(null)
+    input.addEventListener('change', () => finish(input.files?.[0] ?? null))
+    chooseButton.addEventListener('click', handleChoose)
+    cancelButton.addEventListener('click', handleCancel)
+    document.addEventListener('keyup', handleKeyUp)
+
+    dialog.style.display = 'flex'
+    logseq.showMainUI({ autoFocus: true })
+  })
+}
+
 export const importFile = async (
   uuid: string,
   drawioManager: DrawioManager,
   spinnerManager: SpinnerManager
 ) => {
   const storage = logseq.Assets.makeSandboxStorage()
-  const input = document.createElement('input')
-  input.type = 'file'
-  const svg = await new Promise<string>((resolve, reject) => {
-    input.addEventListener('change', async () => {
-      const file = input.files?.[0]
-      if (!file || !isValidFileName(file.name)) {
-        reject()
-        return
-      }
-      const fileName = file.name
-      const hasFile = await storage.hasItem(fileName)
-      if (hasFile) {
-        logseq.UI.showMsg('file name already exists!')
-        reject()
-        return
-      }
-      const content = await file.text()
-      resolve(content)
-    })
-    // todo: when user not select file will reject too.
-
-    input.click()
-  })
+  const file = await chooseFile()
+  if (!file) return
+  if (!isValidFileName(file.name)) {
+    logseq.UI.showMsg('only .drawio and .svg files can be imported', 'error')
+    return
+  }
+  const svg = await file.text()
 
   let fileName = ''
   const handleSave = async (data: string) => {

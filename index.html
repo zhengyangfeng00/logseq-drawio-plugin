@@ -23,6 +23,15 @@
         </div>
       </div>
     </div>
+    <div id="import-dialog" class="hidden fixed top-0 left-0 w-screen h-screen justify-center items-center" style="background-color: rgba(0, 0, 0, 0.5);">
+      <div class="rounded-lg bg-white p-6 shadow-xl text-gray-800">
+        <p class="mb-4">Import a .drawio or .svg file</p>
+        <div class="flex justify-end gap-2">
+          <button id="import-cancel" class="rounded px-3 py-1 bg-gray-200 hover:bg-gray-300">Cancel</button>
+          <button id="import-choose" class="rounded px-3 py-1 bg-blue-600 text-white hover:bg-blue-700">Choose file</button>
+        </div>
+      </div>
+    </div>
     <div id="iframe-wrap" class="p-0 m-0 fixed top-0 left-0 w-screen h-screen" style="display: none;">
       <div class="window-control">
         <button id="window-minimize" class="window-control-button">
