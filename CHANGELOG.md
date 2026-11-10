@@ -1,31 +1,3 @@
-# 1.0.0 (2026-11-10)
-
-
-### Bug Fixes
-
-* [#1](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/1) change zindex to 100, prevent other elements covering ([aaa8d41](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/aaa8d41bd0e57f86a5900bd32cf4199e388e7c54))
-* [#2](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/2) use js-base64 to decode. atob cannot decode uft-8 or unicode string. ([64dc487](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/64dc48707503d2a39ec4e1b34bff14263056892c))
-* add example.gif ([10748a2](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/10748a2ea5c3e43d180c7280149e716c2eb15653))
-* ci config and logo, copy licence to dist. ([0f2f6f4](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/0f2f6f42abcfa992f9e6a0af8ca2234387de3633))
-* first preview can not use mouse to operate ([ab947d3](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/ab947d33972b8c74b0781d2c1705aea89e83b2e6))
-* menu is too close to window bar which causes some menus cannot be clicked. ([bc16549](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/bc16549a5f5e5f70047f7e6870eb34e2bad11a34))
-* toolbar buttons may be hard to see when in some theme. [#3](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/3) ([0dca149](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/0dca149cbcd0e9d804fa32f841912767c2c42dee))
-* use logseq api get window bar height instead of window.top ([696322d](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/696322d9bae0089f0f31bfcc9bc6207eeef8ca83))
-* window bar drag region may cover menus ([eb8ed70](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/eb8ed70d68f1e332c88feeab431a7d19721b5ada))
-
-
-### Features
-
-* add copy image button on inline preview ([#19](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/19)) ([c3b2a6a](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/c3b2a6a9fbf27618321677d8f02758f18557c2c3))
-* add download button to block preview ([8031718](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/80317181cb3389d913846ae7d4acb977301b8a91))
-* dark mode support, multiple drawio theme support and remove top blank bar. [#4](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/4) [#5](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/5) ([c9bf287](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/c9bf2873e3b5c2ba76d10f88eb944d1b20c854a2))
-* enable import or export libraries [#15](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/15) ([e18f8bf](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/e18f8bfb4b99949701c2a8aa6d73f69641332dc7))
-* full page preview can use mouse to move draw ([66bf733](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/66bf733ab1816846c5b74e0209f72331548ae716))
-* new features ([#17](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/17)) ([6d98cb4](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/6d98cb4969dfeda7602606fbd1aa88e6d2af7b85))
-* show diagram file path and add copy-path action ([60146a8](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/60146a85344e5a21c7b9b4d6aaf4e5ebf65b89bd))
-* update drawio version ([#9](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/9)) ([d7719d3](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/d7719d373a910e54f73be25197699e5dad919854))
-* update drawio version and optimizing delete logic ([#23](https://github.com/zhengyangfeng00/logseq-drawio-plugin/issues/23)) ([acd7276](https://github.com/zhengyangfeng00/logseq-drawio-plugin/commit/acd72763745345c543336117a8a6ae8fea904c4c))
-
 # [1.7.0](https://github.com/lee88688/logseq-drawio-plugin/compare/v1.6.0...v1.7.0) (2024-07-17)
 
 
